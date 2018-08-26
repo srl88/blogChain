@@ -1,0 +1,39 @@
+# Google Cloud Platform specs
+runtime: nodejs
+env: flex
+
+# Defines computing resources
+resources:
+    cpu: 1
+    memory_gb: 6
+    disk_size_gb: 10
+
+# Enables auto-scaling
+automatic_scaling:
+    min_num_instances: 1
+    max_num_instances: 10
+    cool_down_period_sec: 180
+    cpu_utilization:
+        target_utilization: 0.7
+
+# Defines environment variables on GCP
+env_variables:
+    ENVIRONMENT: production
+
+# Confirms that the VM and Docker containers are running.
+# Instances that are deemed unhealthy are restarted.
+liveness_check:
+    path: "/liveness_check"
+    check_interval_sec: 30
+    timeout_sec: 4
+    failure_threshold: 2
+    success_threshold: 2
+
+# Confirms that the instances can accept incoming requests
+# readiness_check:
+#   path: "/readiness_check"
+#   check_interval_sec: 5
+#   timeout_sec: 4
+#   failure_threshold: 2
+#   success_threshold: 2
+#   app_start_timeout_sec: 300

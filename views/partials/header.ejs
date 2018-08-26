@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>BlogChain</title>
+        <!-- CDN Links to all the references. We are using materializecss and our main css file -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+        <link rel="stylesheet" href="/stylesheets/main.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+      </script>
+    </head>
+    <body>
+        <nav>
+            <div class="nav-wrapper grey darken-3">
+                <a href="/dashboard" class="brand-logo"><i class="material-icons">trending_up</i>BlogChain</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="/blogs">Blogs</a></li>
+                    <li><a href="/dashboard/arbitrage">Arbitrage</a></li>
+                    <!--NOTE: currentUser is part of the response body.
+                    This can be seen in any of the routes' res object-->
+                    <% if(!currentUser){ %>
+                        <li><a href="/login">Login</a></li>
+                        <li><a href="/register">Sign Up</a></li>
+                    <% } else { %>
+                        <li><a href="/user/<%=currentUser.username%>/profile">Signed In As <%= currentUser.username %></a></li>
+                        <li><a href="/logout">Logout</a></li>
+                    <% } %>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Collapsed side navbar -->
+        <ul class="sidenav" id="mobile-demo">
+          <li><a href="/blogs">Blogs</a></li>
+          <li><a href="/dashboard/arbitrage">Arbitrage</a></li>
+          <% if(!currentUser){ %>
+              <li><a href="/login">Login</a></li>
+              <li><a href="/register">Sign Up</a></li>
+          <% } else { %>
+              <li><a href="/user/<%=currentUser.username%>/profile">Signed In As <%= currentUser.username %></a></li>
+              <li><a href="/logout">Logout</a></li>
+          <% } %>
+        </ul>
+
+        <!--JavaScript file for the menu-->
+        <script type="text/javascript">
+          var elems = document.querySelectorAll('.sidenav');
+          var instances = M.Sidenav.init(elems, 'left');
+        </script>
+
+        <div class= "container">
+            <!--NOTE: Flash message to display outcome from the user input.
+            This is created by the routes. We check lenght in case
+            that we get an empty string-->
+            <% if(error && error.length > 0) { %>
+                <div class="deep-orange lighten-2" id = "flashMessage"><p><%=error %></p></div>
+            <% } %>
+            <% if(success && success.length > 0) { %>
+                <div class="light-green lighten-2" id = "flashMessage"><p><%= success %></p></div>
+            <% } %>
+        </div>

@@ -1,0 +1,15 @@
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#arbitrageTable').DataTable({
+            "order": [[ 2, "desc" ]],
+            "columnDefs": [
+                { "width": "20em", "targets": 11 }
+            ],
+            "pageLength": 30,
+            "scrollX": true,
+            "scrollCollapse": true,
+            "scrollY": "31.25em"
+        });
+    });
+</script>
